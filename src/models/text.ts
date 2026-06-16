@@ -2,12 +2,7 @@ import type { GenerateTextParams, IAgentRuntime, ModelTypeName } from "@elizaos/
 import { generateText } from "ai";
 import { createBitRouterProvider } from "../provider";
 import {
-  getActionPlannerModel,
   getLargeModel,
-  getMediumModel,
-  getMegaModel,
-  getNanoModel,
-  getResponseHandlerModel,
   getSmallModel,
 } from "../utils/config";
 import { emitModelUsageEvent } from "../utils/events";
@@ -33,17 +28,7 @@ export async function handleText(
   return result.text;
 }
 
-export const handleTextNano = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
-  handleText(r, p, t, getNanoModel(r));
 export const handleTextSmall = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
   handleText(r, p, t, getSmallModel(r));
-export const handleTextMedium = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
-  handleText(r, p, t, getMediumModel(r));
 export const handleTextLarge = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
   handleText(r, p, t, getLargeModel(r));
-export const handleTextMega = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
-  handleText(r, p, t, getMegaModel(r));
-export const handleResponseHandler = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
-  handleText(r, p, t, getResponseHandlerModel(r));
-export const handleActionPlanner = (r: IAgentRuntime, p: GenerateTextParams, t: ModelTypeName) =>
-  handleText(r, p, t, getActionPlannerModel(r));
