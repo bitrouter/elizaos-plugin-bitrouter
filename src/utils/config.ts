@@ -36,6 +36,22 @@ export function getLargeModel(runtime: IAgentRuntime): string {
   return getSetting(runtime, "BITROUTER_LARGE_MODEL", DEFAULT_LARGE_MODEL) ?? DEFAULT_LARGE_MODEL;
 }
 
-export function getObjectModel(runtime: IAgentRuntime): string {
-  return getSetting(runtime, "BITROUTER_OBJECT_MODEL") ?? getLargeModel(runtime);
+export function getNanoModel(runtime: IAgentRuntime): string {
+  return getSetting(runtime, "BITROUTER_NANO_MODEL") ?? getSmallModel(runtime);
+}
+
+export function getMediumModel(runtime: IAgentRuntime): string {
+  return getSetting(runtime, "BITROUTER_MEDIUM_MODEL") ?? getSmallModel(runtime);
+}
+
+export function getMegaModel(runtime: IAgentRuntime): string {
+  return getSetting(runtime, "BITROUTER_MEGA_MODEL") ?? getLargeModel(runtime);
+}
+
+export function getResponseHandlerModel(runtime: IAgentRuntime): string {
+  return getSetting(runtime, "BITROUTER_RESPONSE_HANDLER_MODEL") ?? getLargeModel(runtime);
+}
+
+export function getActionPlannerModel(runtime: IAgentRuntime): string {
+  return getSetting(runtime, "BITROUTER_ACTION_PLANNER_MODEL") ?? getLargeModel(runtime);
 }
