@@ -89,6 +89,11 @@
         "type": "string",
         "description": "Integer priority for this provider registration (default 0). Raise to outrank other model providers.",
         "required": false
+      },
+      "BITROUTER_STRUCTURED_OUTPUTS": {
+        "type": "string",
+        "description": "Set true/1/yes to advertise strict json_schema structured output (default false). Enable only when routed models support it; strict mode requires responseSchema objects with additionalProperties:false.",
+        "required": false
       }
     }
   }

@@ -10,6 +10,7 @@ import {
   getNanoModel,
   getResponseHandlerModel,
   getSmallModel,
+  getStructuredOutputs,
 } from "../src/utils/config";
 
 function runtimeWith(settings: Record<string, string | undefined>) {
@@ -89,5 +90,18 @@ describe("config", () => {
   it("action planner model returns explicit env value when set", () => {
     const rt = runtimeWith({ BITROUTER_ACTION_PLANNER_MODEL: "ap-x" });
     expect(getActionPlannerModel(rt)).toBe("ap-x");
+  });
+
+  it("structured outputs default to off", () => {
+    expect(getStructuredOutputs(runtimeWith({}))).toBe(false);
+  });
+
+  it("structured outputs enable on truthy values, ignore others", () => {
+    for (const v of ["true", "1", "yes", "TRUE", " Yes "]) {
+      expect(getStructuredOutputs(runtimeWith({ BITROUTER_STRUCTURED_OUTPUTS: v }))).toBe(true);
+    }
+    for (const v of ["false", "0", "no", "off", ""]) {
+      expect(getStructuredOutputs(runtimeWith({ BITROUTER_STRUCTURED_OUTPUTS: v }))).toBe(false);
+    }
   });
 });

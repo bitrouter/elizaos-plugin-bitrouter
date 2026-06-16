@@ -18,11 +18,14 @@ export const bitrouterPlugin: Plugin = {
   description: "BitRouter LLM routing plugin for ElizaOS",
   priority: Number(env("BITROUTER_PRIORITY") ?? 0),
   autoEnable: {
-    envKeys: ["BITROUTER_API_KEY"],
+    // Enable when either an API key is set OR the user points us at a BitRouter
+    // base URL (covers the common localhost/skip_auth setup with no key).
+    envKeys: ["BITROUTER_API_KEY", "BITROUTER_BASE_URL"],
   },
   config: {
     BITROUTER_BASE_URL: env("BITROUTER_BASE_URL"),
     BITROUTER_API_KEY: env("BITROUTER_API_KEY"),
+    BITROUTER_STRUCTURED_OUTPUTS: env("BITROUTER_STRUCTURED_OUTPUTS"),
     BITROUTER_NANO_MODEL: env("BITROUTER_NANO_MODEL"),
     BITROUTER_SMALL_MODEL: env("BITROUTER_SMALL_MODEL"),
     BITROUTER_MEDIUM_MODEL: env("BITROUTER_MEDIUM_MODEL"),

@@ -6,6 +6,7 @@ describe("bitrouterPlugin manifest", () => {
   it("declares name, autoEnable and init", () => {
     expect(bitrouterPlugin.name).toBe("bitrouter");
     expect(bitrouterPlugin.autoEnable?.envKeys).toContain("BITROUTER_API_KEY");
+    expect(bitrouterPlugin.autoEnable?.envKeys).toContain("BITROUTER_BASE_URL");
     expect(typeof bitrouterPlugin.init).toBe("function");
   });
 

@@ -29,6 +29,11 @@ bun add elizaos-plugin-bitrouter
 | `BITROUTER_RESPONSE_HANDLER_MODEL` | → LARGE | RESPONSE_HANDLER tier |
 | `BITROUTER_ACTION_PLANNER_MODEL` | → LARGE | ACTION_PLANNER tier |
 | `BITROUTER_PRIORITY` | `0` | raise to make BitRouter outrank other registered model providers |
+| `BITROUTER_STRUCTURED_OUTPUTS` | `false` | `true`/`1`/`yes` advertises strict `json_schema` structured output. Off by default for compatibility across mixed upstreams; enable only when your routed models support it. Strict mode requires `responseSchema` objects to set `additionalProperties: false` (and list all keys in `required`) |
+
+> **Auto-enable:** the plugin auto-enables when either `BITROUTER_API_KEY` **or**
+> `BITROUTER_BASE_URL` is set — so a localhost `skip_auth` setup (no key) just needs
+> `BITROUTER_BASE_URL`.
 
 ## Usage
 

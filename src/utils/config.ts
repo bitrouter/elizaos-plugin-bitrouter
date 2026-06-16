@@ -55,3 +55,18 @@ export function getResponseHandlerModel(runtime: IAgentRuntime): string {
 export function getActionPlannerModel(runtime: IAgentRuntime): string {
   return getSetting(runtime, "BITROUTER_ACTION_PLANNER_MODEL") ?? getLargeModel(runtime);
 }
+
+/**
+ * Whether to advertise strict structured-output (json_schema) support to the AI SDK.
+ *
+ * Off by default: BitRouter routes to heterogeneous upstreams and not every model
+ * supports strict structured outputs, so forcing json_schema provider-wide can break
+ * those. Enable with BITROUTER_STRUCTURED_OUTPUTS=true (or 1/yes) when your routed
+ * models support it, to get schema-enforced `responseSchema` output instead of the
+ * looser json_object fallback.
+ */
+export function getStructuredOutputs(runtime: IAgentRuntime): boolean {
+  const value = getSetting(runtime, "BITROUTER_STRUCTURED_OUTPUTS");
+  if (value === undefined) return false;
+  return ["true", "1", "yes"].includes(value.trim().toLowerCase());
+}

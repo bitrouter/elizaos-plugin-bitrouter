@@ -27,4 +27,18 @@ describe("createBitRouterProvider", () => {
       expect.objectContaining({ baseURL: "http://h:9/v1", apiKey: "bitrouter-local" }),
     );
   });
+
+  it("leaves structured outputs off by default", () => {
+    createBitRouterProvider(runtimeWith({ BITROUTER_BASE_URL: "http://h:9" }));
+    expect(createOpenAICompatible).toHaveBeenLastCalledWith(
+      expect.objectContaining({ supportsStructuredOutputs: false }),
+    );
+  });
+
+  it("enables structured outputs when BITROUTER_STRUCTURED_OUTPUTS is truthy", () => {
+    createBitRouterProvider(runtimeWith({ BITROUTER_BASE_URL: "http://h:9", BITROUTER_STRUCTURED_OUTPUTS: "true" }));
+    expect(createOpenAICompatible).toHaveBeenLastCalledWith(
+      expect.objectContaining({ supportsStructuredOutputs: true }),
+    );
+  });
 });
