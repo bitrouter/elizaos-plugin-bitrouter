@@ -3,11 +3,13 @@ import {
   DEFAULT_BASE_URL,
   getApiKey,
   getBaseURL,
+  getActionPlannerModel,
   getLargeModel,
   getMediumModel,
   getMegaModel,
   getNanoModel,
   getObjectModel,
+  getResponseHandlerModel,
   getSmallModel,
 } from "../src/utils/config";
 
@@ -54,5 +56,16 @@ describe("config", () => {
 
   it("explicit large model wins", () => {
     expect(getLargeModel(runtimeWith({ BITROUTER_LARGE_MODEL: "L" }))).toBe("L");
+  });
+
+  it("response-handler and action-planner fall back to large when unset", () => {
+    const rt = runtimeWith({ BITROUTER_LARGE_MODEL: "large-x" });
+    expect(getResponseHandlerModel(rt)).toBe("large-x");
+    expect(getActionPlannerModel(rt)).toBe("large-x");
+  });
+
+  it("response-handler and action-planner prefer their explicit settings", () => {
+    expect(getResponseHandlerModel(runtimeWith({ BITROUTER_RESPONSE_HANDLER_MODEL: "rh" }))).toBe("rh");
+    expect(getActionPlannerModel(runtimeWith({ BITROUTER_ACTION_PLANNER_MODEL: "ap" }))).toBe("ap");
   });
 });
