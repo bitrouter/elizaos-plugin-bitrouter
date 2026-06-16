@@ -13,12 +13,20 @@ export async function handleObject(
 ): Promise<unknown> {
   const provider = createBitRouterProvider(runtime);
   const resolved = modelName ?? getObjectModel(runtime);
-  const result = await generateObject({
-    model: provider.chatModel(resolved),
-    prompt: params.prompt,
-    schema: jsonSchema<unknown>(params.schema as unknown as JSONSchema7),
-    ...(params.temperature !== undefined ? { temperature: params.temperature } : {}),
-  });
+  const temperature = params.temperature !== undefined ? { temperature: params.temperature } : {};
+  const result = params.schema
+    ? await generateObject({
+        model: provider.chatModel(resolved),
+        prompt: params.prompt,
+        schema: jsonSchema<unknown>(params.schema as unknown as JSONSchema7),
+        ...temperature,
+      })
+    : await generateObject({
+        model: provider.chatModel(resolved),
+        prompt: params.prompt,
+        output: "no-schema" as const,
+        ...temperature,
+      });
 
   emitModelUsageEvent(runtime, modelType, params.prompt ?? "", result.usage ?? {}, resolved);
   return result.object;

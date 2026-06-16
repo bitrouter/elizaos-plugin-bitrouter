@@ -32,4 +32,14 @@ describe("handleObject", () => {
     const call = generateObject.mock.calls.at(-1)![0];
     expect(call.prompt).toBe("make json");
   });
+
+  it("works without a schema (no-schema mode) and does not call jsonSchema", async () => {
+    const rt = runtime();
+    jsonSchema.mockClear();
+    const out = await handleObject(rt, { prompt: "freeform json" }, ModelType.OBJECT_SMALL);
+    expect(out).toEqual({ message: "hi" });
+    expect(jsonSchema).not.toHaveBeenCalled();
+    const call = generateObject.mock.calls.at(-1)![0];
+    expect(call.output).toBe("no-schema");
+  });
 });

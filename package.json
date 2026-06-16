@@ -18,7 +18,7 @@
     "ai": "^6.0.30"
   },
   "peerDependencies": {
-    "@elizaos/core": "*"
+    "@elizaos/core": ">=1.7.0 <2"
   },
   "devDependencies": {
     "@elizaos/core": "^1.0.0",
