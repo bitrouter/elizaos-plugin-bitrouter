@@ -42,12 +42,52 @@
     "pluginParameters": {
       "BITROUTER_BASE_URL": {
         "type": "string",
-        "description": "BitRouter base URL (default http://127.0.0.1:4356).",
+        "description": "BitRouter listen address (default http://127.0.0.1:4356).",
         "required": false
       },
       "BITROUTER_API_KEY": {
         "type": "string",
         "description": "BitRouter virtual API key (brvk_...). Optional when BitRouter runs with skip_auth on localhost.",
+        "required": false
+      },
+      "BITROUTER_SMALL_MODEL": {
+        "type": "string",
+        "description": "Model string for the SMALL tier (default gpt-4o-mini). Bare name uses BitRouter auto-cascade; provider:model pins a specific upstream.",
+        "required": false
+      },
+      "BITROUTER_LARGE_MODEL": {
+        "type": "string",
+        "description": "Model string for the LARGE tier (default gpt-4o).",
+        "required": false
+      },
+      "BITROUTER_NANO_MODEL": {
+        "type": "string",
+        "description": "Model string for the NANO tier (defaults to SMALL).",
+        "required": false
+      },
+      "BITROUTER_MEDIUM_MODEL": {
+        "type": "string",
+        "description": "Model string for the MEDIUM tier (defaults to SMALL).",
+        "required": false
+      },
+      "BITROUTER_MEGA_MODEL": {
+        "type": "string",
+        "description": "Model string for the MEGA tier (defaults to LARGE).",
+        "required": false
+      },
+      "BITROUTER_RESPONSE_HANDLER_MODEL": {
+        "type": "string",
+        "description": "Model string for the RESPONSE_HANDLER tier (defaults to LARGE).",
+        "required": false
+      },
+      "BITROUTER_ACTION_PLANNER_MODEL": {
+        "type": "string",
+        "description": "Model string for the ACTION_PLANNER tier (defaults to LARGE).",
+        "required": false
+      },
+      "BITROUTER_PRIORITY": {
+        "type": "string",
+        "description": "Integer priority for this provider registration (default 0). Raise to outrank other model providers.",
         "required": false
       }
     }
