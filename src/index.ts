@@ -40,6 +40,40 @@ export const bitrouterPlugin: Plugin = {
     [ModelType.OBJECT_LARGE]: async (r: IAgentRuntime, p: ObjectGenerationParams) =>
       handleObjectLarge(r, p, ModelType.OBJECT_LARGE) as Promise<Record<string, unknown>>,
   },
+  tests: [
+    {
+      name: "bitrouter_plugin_tests",
+      tests: [
+        {
+          name: "bitrouter_text_small",
+          fn: async (runtime: IAgentRuntime) => {
+            const text = await runtime.useModel(ModelType.TEXT_SMALL, {
+              prompt: "What is the nature of reality in 10 words?",
+            });
+            if (!text || (text as string).length === 0) {
+              throw new Error("Failed to generate text");
+            }
+          },
+        },
+        {
+          name: "bitrouter_object_large",
+          fn: async (runtime: IAgentRuntime) => {
+            const obj = await runtime.useModel(ModelType.OBJECT_LARGE, {
+              prompt: "Return a JSON object with a message field that says hello.",
+              schema: {
+                type: "object",
+                properties: { message: { type: "string" } },
+                required: ["message"],
+              },
+            });
+            if (!obj) {
+              throw new Error("Failed to generate object");
+            }
+          },
+        },
+      ],
+    },
+  ],
 };
 
 export default bitrouterPlugin;
