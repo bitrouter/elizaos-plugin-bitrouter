@@ -28,6 +28,7 @@ export async function handleText(
       model,
       prompt,
       schema: jsonSchema<unknown>(params.responseSchema as unknown as JSONSchema7),
+      ...(params.system ? { system: params.system } : {}),
       ...(params.temperature !== undefined ? { temperature: params.temperature } : {}),
     });
     emitModelUsageEvent(runtime, modelType, prompt, result.usage ?? {}, modelName);

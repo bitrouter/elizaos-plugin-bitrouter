@@ -26,12 +26,10 @@ describe("bitrouterPlugin manifest", () => {
   });
 
   it("does NOT register OBJECT_SMALL, OBJECT_LARGE, embeddings, or media types", () => {
-    const models = bitrouterPlugin.models ?? {};
-    // @ts-expect-error — intentionally testing removed keys
-    expect(models[ModelType.OBJECT_SMALL]).toBeUndefined();
-    // @ts-expect-error — intentionally testing removed keys
-    expect(models[ModelType.OBJECT_LARGE]).toBeUndefined();
-    expect(models[ModelType.TEXT_EMBEDDING]).toBeUndefined();
-    expect(models[ModelType.IMAGE]).toBeUndefined();
+    const keys = Object.keys(bitrouterPlugin.models ?? {});
+    expect(keys).not.toContain("OBJECT_SMALL");
+    expect(keys).not.toContain("OBJECT_LARGE");
+    expect(keys).not.toContain("TEXT_EMBEDDING");
+    expect(keys).not.toContain("IMAGE");
   });
 });
